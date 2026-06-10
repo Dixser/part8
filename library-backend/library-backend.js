@@ -128,7 +128,7 @@ const typeDefs = `
       author: String!
       genres: [String!]!
     ): Book!
-    
+
     editAuthor(
       name: String!
       setBornTo: Int!
@@ -158,8 +158,11 @@ const resolvers = {
   },
   Mutation: {
     addBook: (root, args) => {
-      const book = { ...args }
+      const book = { ...args, id: uuid() }
       books = books.concat(book)
+      if (!authors.find((a) => a.name === args.author)) {
+        authors = authors.concat({ name: args.author, born: null, id: uuid() })
+      }
       return book
     },
     editAuthor: (root, args) => {
