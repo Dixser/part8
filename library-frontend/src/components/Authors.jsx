@@ -26,12 +26,14 @@ const Authors = (props) => {
     if (!name || !born) {
       return
     }
+
     updateAuthor({
       variables: {
         name,
         born: parseInt(born),
       },
     })
+
     setName('')
     setBorn('')
   }
@@ -55,16 +57,17 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-      <div className='setBirthyear'>
+      <div className="setBirthyear">
         <h3>Set birthyear</h3>
         <label>
           name
           <select
-            name='name'
-            id='name'
+            name="name"
+            id="name"
             value={name}
             onChange={(event) => setName(event.target.value)}
           >
+            <option name="" id=""></option>
             {authors.map((author) => (
               <option key={author.id} value={author.name}>
                 {author.name}
@@ -76,15 +79,15 @@ const Authors = (props) => {
         <label>
           born
           <input
-            type='number'
-            name='born'
-            id='born'
+            type="number"
+            name="born"
+            id="born"
             value={born}
             onChange={(event) => setBorn(event.target.value)}
           />
         </label>
         <br />
-        <button type='submit' onClick={onSubmit}>
+        <button type="submit" onClick={onSubmit}>
           update author
         </button>
       </div>
