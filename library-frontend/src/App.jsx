@@ -4,11 +4,18 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import Recommended from './components/Recommended'
+import { useSubscription } from '@apollo/client/react'
+import { BOOK_ADDED } from './queries/queries'
 
 const App = () => {
   const [page, setPage] = useState('authors')
   const [token, setToken] = useState(null)
-
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data }) => {
+      const addedBook = data.data.bookAdded
+      notify(`${addedBook.title} by ${addedBook.author.name} added`)
+    }
+  })
   useEffect(() => {
     const token = localStorage.getItem('booklibrary-user-token')
     if (token) {
